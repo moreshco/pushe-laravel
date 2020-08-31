@@ -4,9 +4,7 @@ namespace Moreshco\PusheLaravel;
 
 class PusheLaravel
 {
-    public function sendSimpleNotification($title, $content){
-        $appId = config('pushe.app_id');
-        $token = config('pushe.token');
+    private function sendNotificationToSpecificApp($data, $appId, $token, $filters){
         if (empty($appId) or empty($token)){
             return 'Please set config file';
         }
@@ -21,15 +19,61 @@ class PusheLaravel
                 "Authorization: Token " . $token,
             ),
         ));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array(
-            'app_ids' => $appId,
-            'data' => array(
-                'title' => $title,
-                'content' => $content
-            )
-        )));
+        if (empty($filters)){
+            $pusheData = array(
+                'app_ids' => $appId,
+                'data' => $data
+            );
+        }else{
+            $pusheData = array(
+                'app_ids' => $appId,
+                'data' => $data,
+                'filters' => $filters
+            );
+        }
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($pusheData));
         $result = curl_exec($ch);
         curl_close($ch);
         return $result;
+    }
+
+    public function sendNotification($data, $names = [], $filters = []){
+        $apps = config('pushe.apps');
+        $results = array();
+        foreach ($apps as $app){
+            if (empty($names) or in_array($app['name'], $names)){
+                $results[] = $this->sendNotificationToSpecificApp($data, $app['app_id'], $app['token'], $filters);
+            }
+        }
+        return $results;
+    }
+
+    public function sendSimpleNotificationToAll($title, $content){
+        $data = array(
+            'title' => $title,
+            'content' => $content
+        );
+        return $this->sendNotification($data);
+    }
+
+    public function sendSimpleNotificationToApp($title, $content, $name){
+        $data = array(
+            'title' => $title,
+            'content' => $content
+        );
+        return $this->sendNotification($data, [$name]);
+    }
+
+    public function sendSimpleNotificationToDeviceByAppName($title, $content, $deviceId, $name){
+        $data = array(
+            'title' => $title,
+            'content' => $content
+        );
+        $filters = array(
+            'device_id' => array(
+                $deviceId
+            ),
+        );
+        return $this->sendNotification($data, [$name], $filters);
     }
 }

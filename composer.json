@@ -3,7 +3,9 @@
     "description": "A laravel package for communications with pushe",
     "keywords": [
         "moreshco",
-        "pushe-laravel"
+        "pushe-laravel",
+        "pushe",
+        "push-notification"
     ],
     "homepage": "https://github.com/moreshco/pushe-laravel",
     "license": "MIT",
