@@ -21,7 +21,7 @@ class PusheLaravelServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('pushe-laravel.php'),
+                __DIR__.'/../config/config.php' => config_path('pushe.php'),
             ], 'config');
 
             // Publishing the views.

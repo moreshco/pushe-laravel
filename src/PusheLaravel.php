@@ -5,12 +5,12 @@ namespace Moreshco\PusheLaravel;
 class PusheLaravel
 {
     public function sendSimpleNotification($title, $content){
-        $appId = config('app_id');
-        $token = config('token');
+        $appId = config('pushe.app_id');
+        $token = config('pushe.token');
         if (empty($appId) or empty($token)){
             return 'Please set config file';
         }
-        $notificationURL = config('pushe_notification_url');
+        $notificationURL = config('pushe.pushe_notification_url');
         $ch = curl_init($notificationURL);
         curl_setopt_array($ch, array(
             CURLOPT_POST  => 1,
