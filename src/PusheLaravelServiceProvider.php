@@ -2,8 +2,8 @@
 
 namespace Moreshco\PusheLaravel;
 
-use Illuminate\Auth\Console\PusheInstallCommand;
 use Illuminate\Support\ServiceProvider;
+use Moreshco\PusheLaravel\Console\PusheInstallCommand;
 
 class PusheLaravelServiceProvider extends ServiceProvider
 {
