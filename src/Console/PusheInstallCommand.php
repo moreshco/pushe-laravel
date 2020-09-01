@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Auth\Console;
+namespace Moreshco\PusheLaravel\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
