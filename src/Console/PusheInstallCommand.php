@@ -41,13 +41,13 @@ class PusheInstallCommand extends Command
             FILE_APPEND
         );
 
-        $this->info("Publish migrations");
+        $this->info("Publish migrations ...");
         Artisan::call('vendor:publish', [
             '--provider' => 'Moreshco\PusheLaravel\PusheLaravelServiceProvider', '--tag' => 'migrations'
         ]);
 
-        $this->info("Make migrations");
-        Artisan::call('make:migration');
+        $this->info("Migrate ...");
+        Artisan::call('migrate');
 
         $this->info('Pushe Laravel scaffolding generated successfully.');
     }
