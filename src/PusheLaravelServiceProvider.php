@@ -2,6 +2,7 @@
 
 namespace Moreshco\PusheLaravel;
 
+use Illuminate\Auth\Console\PusheInstallCommand;
 use Illuminate\Support\ServiceProvider;
 
 class PusheLaravelServiceProvider extends ServiceProvider
@@ -24,6 +25,10 @@ class PusheLaravelServiceProvider extends ServiceProvider
                 __DIR__.'/../config/config.php' => config_path('pushe.php'),
             ], 'config');
 
+            $this->publishes([
+                __DIR__ . '/migrations/' => base_path('/database/migrations')
+            ], 'migrations');
+
             // Publishing the views.
             /*$this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/pushe-laravel'),
@@ -39,8 +44,9 @@ class PusheLaravelServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/lang' => resource_path('lang/vendor/pushe-laravel'),
             ], 'lang');*/
 
-            // Registering package commands.
-            // $this->commands([]);
+            $this->commands([
+                PusheInstallCommand::class,
+            ]);
         }
     }
 
