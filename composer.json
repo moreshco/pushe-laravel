@@ -47,7 +47,7 @@
                 "Moreshco\\PusheLaravel\\PusheLaravelServiceProvider"
             ],
             "aliases": {
-                "PusheLaravel": "Moreshco\\PusheLaravel\\PusheLaravelFacade"
+                "PusheFacade": "Moreshco\\PusheLaravel\\Facades\\PusheFacade"
             }
         }
     }
