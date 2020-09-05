@@ -9,6 +9,11 @@ use Moreshco\PusheLaravel\Models\Device;
 
 class PusheDeviceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
     public function saveDevice(Request $request){
         $userId = $request->get('user_id');
         $deviceId = $request->get('device_id');
