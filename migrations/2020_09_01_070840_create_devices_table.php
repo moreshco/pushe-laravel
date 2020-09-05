@@ -14,7 +14,7 @@ class CreateDevicesTable extends Migration
     public function up()
     {
         Schema::create('devices', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('device_id')->unsigned();
             $table->integer('android_id')->nullable();
             $table->timestamps();

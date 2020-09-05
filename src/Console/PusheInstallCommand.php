@@ -4,10 +4,12 @@ namespace Moreshco\PusheLaravel\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Console\DetectsApplicationNamespace;
 
 class PusheInstallCommand extends Command
 {
 
+    use DetectsApplicationNamespace;
     /**
      * The name and signature of the console command.
      *
@@ -29,6 +31,13 @@ class PusheInstallCommand extends Command
      */
     public function handle()
     {
+
+        $this->info("Publish Controller ...");
+        file_put_contents(
+            app_path('Http/Controllers/PusheDeviceController.php'),
+            $this->compileControllerStub()
+        );
+
         $this->info("Publish config ...");
         Artisan::call('vendor:publish', [
             '--provider' => 'Moreshco\PusheLaravel\PusheLaravelServiceProvider', '--tag' => 'config'
@@ -50,5 +59,14 @@ class PusheInstallCommand extends Command
         Artisan::call('migrate');
 
         $this->info('Pushe Laravel scaffolding generated successfully.');
+    }
+
+    protected function compileControllerStub()
+    {
+        return str_replace(
+            '{{namespace}}',
+            $this->getAppNamespace(),
+            file_get_contents(__DIR__.'/stubs/make/controllers/PusheDeviceController.stub')
+        );
     }
 }

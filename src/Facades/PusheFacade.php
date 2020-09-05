@@ -19,7 +19,7 @@ class PusheFacade extends Facade
 
     public static function routes()
     {
-        Route::post('/device/save', [
+        \Route::post('/device/save', [
             'uses' => 'PusheDeviceController@saveDevice',
         ])->name('pushe.saveDevice');
     }

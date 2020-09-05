@@ -26,7 +26,7 @@ class PusheLaravelServiceProvider extends ServiceProvider
             ], 'config');
 
             $this->publishes([
-                __DIR__ . '/migrations/' => base_path('/database/migrations')
+                __DIR__ . '/../migrations/' => base_path('database/migrations')
             ], 'migrations');
 
             // Publishing the views.
@@ -43,6 +43,7 @@ class PusheLaravelServiceProvider extends ServiceProvider
             /*$this->publishes([
                 __DIR__.'/../resources/lang' => resource_path('lang/vendor/pushe-laravel'),
             ], 'lang');*/
+
 
             $this->commands([
                 PusheInstallCommand::class,
